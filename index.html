@@ -144,6 +144,8 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 .dur-btn{flex-shrink:0;padding:7px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg3);color:var(--text2);font-family:'Fredoka',sans-serif;font-size:13px;cursor:pointer;transition:all .18s;white-space:nowrap;}
 .dur-btn.selected{border-color:var(--teal);background:rgba(34,211,238,.12);color:var(--teal);}
 .dur-btn:hover:not(.selected){border-color:var(--border2);}
+.dur-select{appearance:none;-webkit-appearance:none;padding-right:24px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7280'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;cursor:pointer;}
+.dur-select.selected{border-color:var(--teal);background-color:rgba(34,211,238,.12);color:var(--teal);}
 
 .log-btn{width:100%;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-family:'Fredoka',sans-serif;font-size:17px;font-weight:600;cursor:pointer;transition:all .2s;}
 .log-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(124,106,247,.4);}
@@ -448,6 +450,8 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
         <option value="Saxophone|🎷">🎷 Saxophone</option>
         <option value="Trombone|🎺">🎺 Trombone</option>
         <option value="Recorder|🪈">🪈 Recorder</option>
+        <option value="Viola|🎻">🎻 Viola</option>
+        <option value="Double Bass|🎻">🎻 Double Bass</option>
       </select>
       <div class="ob-setup-label">Your name (parent)</div>
       <input class="ob-input" id="obParentName" type="text" placeholder="e.g. Sarah" maxlength="20" style="margin-bottom:14px;"/>
@@ -808,35 +812,48 @@ function startApp(){
 }
 
 
-const DUR_OPTIONS = [10,15,20,25,30,35,40,45,50,55,60,75,90];
-const DUR_LABELS  = ['10m','15m','20m','25m','30m','35m','40m','45m','50m','55m','60m','75m','90m'];
+const DUR_OPTIONS = [5,10,15,20,25,30,35,40,45,50,55,60,75,90];
+const DUR_LABELS  = ['5m','10m','15m','20m','25m','30m','35m','40m','45m','50m','55m','60m','75m','90m'];
 
 function buildDurButtons(){
   const scroll=document.getElementById('durScroll');
   scroll.innerHTML='';
   DUR_OPTIONS.forEach((d,i)=>{
+    if(d>30) return;
     const btn=document.createElement('button');
     btn.className='dur-btn';
     btn.dataset.dur=d;
     btn.textContent=DUR_LABELS[i];
     btn.onclick=()=>pickDur(btn);
-    if(d>60) btn.style.display='none';
     scroll.appendChild(btn);
   });
-  const more=document.createElement('button');
-  more.className='dur-btn';
-  more.id='durMore';
-  more.textContent='More ▾';
-  more.onclick=showMoreDur;
-  scroll.appendChild(more);
+  const sel=document.createElement('select');
+  sel.className='dur-btn dur-select';
+  sel.id='durMoreSel';
+  const placeholder=document.createElement('option');
+  placeholder.value='';
+  placeholder.textContent='More...';
+  placeholder.disabled=true;
+  placeholder.selected=true;
+  sel.appendChild(placeholder);
+  DUR_OPTIONS.forEach((d,i)=>{
+    if(d<=30) return;
+    const opt=document.createElement('option');
+    opt.value=d;
+    opt.textContent=DUR_LABELS[i];
+    sel.appendChild(opt);
+  });
+  sel.onchange=()=>{
+    if(!sel.value) return;
+    document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
+    sel.classList.add('selected');
+    st.dur=parseInt(sel.value);
+    checkReady();
+  };
+  scroll.appendChild(sel);
 }
 
-function showMoreDur(){
-  document.querySelectorAll('.dur-btn').forEach(b=>{
-    if(b.dataset.dur && parseInt(b.dataset.dur)>60) b.style.display='';
-  });
-  document.getElementById('durMore').style.display='none';
-}
+function showMoreDur(){}
 
 const SURPRISE_EMOJIS=['⭐','🌟','💫','✨','🎵','🎶','🏆','🎖️','🥇','💎','🔥','🌈','🎊','🎉','💪','🦋','🌺','🍀','🎯','🚀','🎀','🍭','🦄','🌙','👑','🎸','🌻','🍩','🧁','🪐','💜','🎪','🌊','⚡','🍉','🧸','🎠','🪄','💝','🫧','🐉','🦁','🐬','🦈','🎨','🎭','🎪','🏖️','🎢','🎡','🌮','🍕','🍦','🧊','🎲','🃏','🪁','🛸','🌋','🏔️','🦚','🦜','🐝','🦩','🐙','🪸','🍄','🌵','🪻','🌸','🌼','💐','🧿','🪬','🔮','🧲','💡','🎃','🪩','🎱','🏅','🎗️','🥁','🎺','🎻','🪈','🎤','🎧','🩰','🧩','🎮','🕹️','🤖','👾','🛹','🏄','🧗','🎿','⛷️','🏋️','🤸','🧘'];
 
@@ -907,6 +924,8 @@ function clearInst(){
 }
 function pickDur(btn){
   document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
+  const sel=document.getElementById('durMoreSel');
+  if(sel) sel.selectedIndex=0;
   btn.classList.add('selected'); st.dur=parseInt(btn.dataset.dur); checkReady();
 }
 function checkReady(){
@@ -1083,6 +1102,8 @@ function approve(){
     st.pending=null;st.txCount++;st.streak=Math.min(st.streak+1,99);st.mins+=sess.dur;st.xp+=Math.floor(sess.dur*1.5+10);
     clearInst();
     document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
+    const durSel=document.getElementById('durMoreSel');
+    if(durSel) durSel.selectedIndex=0;
     st.dur=null;
     document.getElementById('logBtn').textContent='📝 Send to parent';
     document.getElementById('logBtn').disabled=true;
