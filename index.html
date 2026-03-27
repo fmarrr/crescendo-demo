@@ -696,6 +696,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
     <div id="pendReq"></div>
     <div class="sec-title" style="margin-top:16px">📋 History</div>
     <div id="parHist"></div>
+    <button onclick="clearState()" style="margin:24px auto 8px;display:block;background:none;border:1px solid rgba(255,255,255,.12);color:var(--text3);border-radius:10px;padding:8px 18px;font-size:13px;cursor:pointer;">🔄 Reset progress</button>
   </div>
 </div>
 
@@ -809,6 +810,7 @@ function startApp(){
     if(btn) pickLogo(btn);
   }
   document.getElementById('onboard').classList.add('hidden');
+  saveState();
 }
 
 
@@ -878,6 +880,28 @@ const st={inst:null,icon:null,dur:null,pending:null,stamps:[],streak:0,mins:0,xp
 let pickedEmoji=null;
 let pendingMysteryData=null; // holds {emoji, tx, sess, newNodeIdx} for mystery flow
 
+// ─── PERSISTENCE ─────────────────────────────────────────────────────────────
+const STORAGE_KEY='crescendo_v1';
+function saveState(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify({ob,st}));}catch(e){}
+}
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return false;
+    const saved=JSON.parse(raw);
+    if(!saved.ob||!saved.st)return false;
+    Object.assign(ob,saved.ob);
+    Object.assign(st,saved.st);
+    return true;
+  }catch(e){return false;}
+}
+function clearState(){
+  if(!confirm('Reset all progress? This cannot be undone.'))return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
 function fakeTx(){return '0x'+[...Array(8)].map(()=>Math.floor(Math.random()*16).toString(16)).join('')+'...'+[...Array(4)].map(()=>Math.floor(Math.random()*16).toString(16)).join('');}
 function tNow(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
@@ -943,6 +967,7 @@ function submit(){
   document.getElementById('sentCard').classList.add('show');
   document.getElementById('sentDet').textContent=`${st.icon} ${st.inst} · ${st.dur} min · sent at ${st.pending.time}`;
   toast('📨 Practice sent to parent!');
+  saveState();
 }
 
 /* ─── MAP ─── */
@@ -1164,6 +1189,7 @@ function openMysteryBox(){
       // Now push the stamp with the chosen emoji
       const d=pendingMysteryData;
       st.stamps.push({emoji,inst:d.sess.inst,icon:d.sess.icon,dur:d.sess.dur,time:tNow(),tx:d.tx});
+      saveState();
       renderColl(true);renderMap(d.newNodeIdx);renderParent();
 
       setTimeout(()=>{
@@ -1201,6 +1227,7 @@ function skip(){
   checkReady();
   document.getElementById('sentCard').classList.remove('show');
   renderParent();toast('Session skipped');
+  saveState();
 }
 
 function confetti(n=55){
@@ -1619,6 +1646,24 @@ function initDodge(canvas){
 }
 
 buildDurButtons();
+if(loadState()){
+  // Restore UI — skip onboarding
+  document.getElementById('childNameDisplay').textContent=ob.childName+"'s Journal";
+  document.getElementById('parNameDisplay').textContent=ob.parentName+' (parent)';
+  document.getElementById('avatarRing').textContent=ob.avatar;
+  document.getElementById('onboard').classList.add('hidden');
+  if(ob.instruments.length>0){
+    const first=ob.instruments[0];
+    const btn=document.querySelector(`.inst-big-btn[data-inst="${first.name}"]`);
+    if(btn) pickLogo(btn);
+  }
+  if(st.pending){
+    document.getElementById('sentCard').classList.add('show');
+    document.getElementById('sentDet').textContent=`${st.pending.icon} ${st.pending.inst} · ${st.pending.dur} min · sent at ${st.pending.time}`;
+    document.getElementById('logBtn').disabled=true;
+    document.getElementById('logBtn').textContent='⏳ Sent!';
+  }
+}
 renderColl(false);
 renderMap(null);
 renderParent();
