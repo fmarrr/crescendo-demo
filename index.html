@@ -436,22 +436,13 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
         <button class="ob-inst-btn sel" data-inst="Piano" data-icon="🎹" onclick="pickObInst(this)">🎹<span class="ibl">Piano</span></button>
         <button class="ob-inst-btn" data-inst="Cello" data-icon="🎻" onclick="pickObInst(this)">🎻<span class="ibl">Cello</span></button>
         <button class="ob-inst-btn" data-inst="Violin" data-icon="🪕" onclick="pickObInst(this)">🪕<span class="ibl">Violin</span></button>
-        <button class="ob-inst-btn" data-inst="Drums" data-icon="🥁" onclick="pickObInst(this)">🥁<span class="ibl">Drums</span></button>
+        <button class="ob-inst-btn" data-inst="Viola" data-icon="🎻" onclick="pickObInst(this)">🎻<span class="ibl">Viola</span></button>
       </div>
       <select class="ob-more-inst" id="obMoreInst" onchange="pickObMoreInst(this)">
         <option value="">+ More instruments...</option>
-        <option value="Guitar|🎸">🎸 Guitar</option>
-        <option value="Trumpet|🎺">🎺 Trumpet</option>
-        <option value="Flute|🪈">🪈 Flute</option>
-        <option value="Singing|🎤">🎤 Singing</option>
-        <option value="Ukulele|🪕">🪕 Ukulele</option>
-        <option value="Harp|🎵">🎵 Harp</option>
-        <option value="Clarinet|🎷">🎷 Clarinet</option>
-        <option value="Saxophone|🎷">🎷 Saxophone</option>
-        <option value="Trombone|🎺">🎺 Trombone</option>
-        <option value="Recorder|🪈">🪈 Recorder</option>
-        <option value="Viola|🎻">🎻 Viola</option>
         <option value="Double Bass|🎻">🎻 Double Bass</option>
+        <option value="Recorder|🪈">🪈 Recorder</option>
+        <option value="Harp|🎵">🎵 Harp</option>
       </select>
       <div class="ob-setup-label">Your name (parent)</div>
       <input class="ob-input" id="obParentName" type="text" placeholder="e.g. Sarah" maxlength="20" style="margin-bottom:14px;"/>
@@ -588,23 +579,16 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
         <button class="inst-big-btn" data-inst="Violin" data-icon="🪕" onclick="pickLogo(this)">
           <span class="ib-em">🪕</span><span class="ib-lb">Violin</span>
         </button>
-        <button class="inst-big-btn" data-inst="Drums" data-icon="🥁" onclick="pickLogo(this)">
-          <span class="ib-em">🥁</span><span class="ib-lb">Drums</span>
+        <button class="inst-big-btn" data-inst="Viola" data-icon="🎻" onclick="pickLogo(this)">
+          <span class="ib-em">🎻</span><span class="ib-lb">Viola</span>
         </button>
       </div>
       <div class="more-wrap">
         <select class="more-sel" id="moreSel" onchange="pickDrop(this)">
           <option value="">+ More instruments...</option>
-          <option value="Guitar|🎸">🎸 Guitar</option>
-          <option value="Trumpet|🎺">🎺 Trumpet</option>
-          <option value="Flute|🪈">🪈 Flute</option>
-          <option value="Singing|🎤">🎤 Singing</option>
-          <option value="Ukulele|🪕">🪕 Ukulele</option>
-          <option value="Harp|🎵">🎵 Harp</option>
-          <option value="Clarinet|🎷">🎷 Clarinet</option>
-          <option value="Saxophone|🎷">🎷 Saxophone</option>
-          <option value="Trombone|🎺">🎺 Trombone</option>
+          <option value="Double Bass|🎻">🎻 Double Bass</option>
           <option value="Recorder|🪈">🪈 Recorder</option>
+          <option value="Harp|🎵">🎵 Harp</option>
         </select>
         <div class="more-arr">▾</div>
       </div>
