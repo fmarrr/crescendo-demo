@@ -190,12 +190,18 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 .mb.locked{opacity:.22;filter:grayscale(1);}
 .mb.earned{border-color:var(--purple);background:rgba(124,106,247,.18);box-shadow:0 0 12px rgba(124,106,247,.4);}
 .mb.ms-earned{border-color:var(--gold)!important;background:rgba(245,158,11,.2)!important;box-shadow:0 0 22px rgba(245,158,11,.55)!important;}
+.mb.ms-target{border-color:rgba(245,158,11,.4)!important;opacity:.5;filter:grayscale(.4);}
 .mb.current{border-color:var(--yellow);background:rgba(251,191,36,.13);box-shadow:0 0 0 5px rgba(251,191,36,.1),0 0 20px rgba(251,191,36,.4);animation:cpulse 2.5s ease-in-out infinite;}
+.mb.ms-current{border-color:var(--gold)!important;background:rgba(245,158,11,.13)!important;box-shadow:0 0 0 5px rgba(245,158,11,.12),0 0 24px rgba(245,158,11,.5)!important;animation:mscpulse 2.5s ease-in-out infinite;}
 @keyframes cpulse{0%,100%{box-shadow:0 0 0 5px rgba(251,191,36,.1),0 0 20px rgba(251,191,36,.4);}50%{box-shadow:0 0 0 9px rgba(251,191,36,.05),0 0 32px rgba(251,191,36,.6);}}
+@keyframes mscpulse{0%,100%{box-shadow:0 0 0 5px rgba(245,158,11,.12),0 0 24px rgba(245,158,11,.5);}50%{box-shadow:0 0 0 10px rgba(245,158,11,.06),0 0 38px rgba(245,158,11,.7);}}
+.mb.ms-earned::after,.mb.ms-target::after,.mb.ms-current::after{content:'★';position:absolute;top:-7px;right:-7px;width:16px;height:16px;border-radius:50%;background:var(--gold);color:#1a0800;font-size:9px;line-height:16px;text-align:center;box-shadow:0 0 6px rgba(245,158,11,.6);}
 .mb-lbl{font-size:9px;color:var(--text3);text-align:center;line-height:1.3;max-width:58px;}
 .mb-lbl.l-earned{color:var(--purple2);}
 .mb-lbl.l-current{color:var(--yellow);}
 .mb-lbl.l-ms{color:var(--gold);}
+.mb-lbl.l-ms-target{color:rgba(245,158,11,.55);}
+.mb-lbl.l-ms-current{color:var(--gold);font-weight:600;}
 .sp{position:fixed;pointer-events:none;z-index:360;font-size:14px;animation:spfly 1.2s ease-out forwards;}
 @keyframes spfly{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}
 
@@ -635,7 +641,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
     <div class="map-card">
       <div class="map-hdr">
         <div class="map-hdr-title">🌟 Practice path</div>
-        <div class="map-prog" id="mapProg">0 / 12 stamps</div>
+        <div class="map-prog" id="mapProg">0 stamps earned</div>
       </div>
       <div class="map-scroll"><div class="snake" id="snake"></div></div>
     </div>
@@ -859,22 +865,39 @@ function showMoreDur(){}
 
 const SURPRISE_EMOJIS=['⭐','🌟','💫','✨','🎵','🎶','🏆','🎖️','🥇','💎','🔥','🌈','🎊','🎉','💪','🦋','🌺','🍀','🎯','🚀','🎀','🍭','🦄','🌙','👑','🎸','🌻','🍩','🧁','🪐','💜','🎪','🌊','⚡','🍉','🧸','🎠','🪄','💝','🫧','🐉','🦁','🐬','🦈','🎨','🎭','🎪','🏖️','🎢','🎡','🌮','🍕','🍦','🧊','🎲','🃏','🪁','🛸','🌋','🏔️','🦚','🦜','🐝','🦩','🐙','🪸','🍄','🌵','🪻','🌸','🌼','💐','🧿','🪬','🔮','🧲','💡','🎃','🪩','🎱','🏅','🎗️','🥁','🎺','🎻','🪈','🎤','🎧','🩰','🧩','🎮','🕹️','🤖','👾','🛹','🏄','🧗','🎿','⛷️','🏋️','🤸','🧘'];
 
-const NODES=[
-  {i:0,icon:'🎵',lbl:'Start!',ms:false},
-  {i:1,icon:'⭐',lbl:'1st stamp',ms:false},
-  {i:2,icon:'🎶',lbl:'2nd stamp',ms:false},
-  {i:3,icon:'🔥',lbl:'3-stamp streak!',ms:true,micon:'🔥',mtitle:'On fire!',msub:'3 stamps earned!'},
-  {i:4,icon:'🎸',lbl:'4th stamp',ms:false},
-  {i:5,icon:'💫',lbl:'5th stamp',ms:false},
-  {i:6,icon:'🏆',lbl:'Half way!',ms:true,micon:'🏆',mtitle:'Half way!',msub:'6 stamps on-chain!'},
-  {i:7,icon:'🌟',lbl:'7th stamp',ms:false},
-  {i:8,icon:'💎',lbl:'8th stamp',ms:false},
-  {i:9,icon:'🎯',lbl:'9th stamp',ms:false},
-  {i:10,icon:'🌈',lbl:'10 stamps!',ms:true,micon:'🌈',mtitle:'10 stamp legend!',msub:"You're on a roll!"},
-  {i:11,icon:'🚀',lbl:'11th stamp',ms:false},
-  {i:12,icon:'👑',lbl:'Champion!',ms:true,micon:'👑',mtitle:'Journey complete!',msub:'12 stamps minted on Base!'},
+const MS_DATA=[
+  ['🏆','10 Stamp Champion!','Ten stamps on Base!'],
+  ['🌈','20 Stamp Rainbow!','Twenty! Unstoppable!'],
+  ['💎','30 Stamp Diamond!','Thirty stamps — sparkling!'],
+  ['🚀','40 Stamp Rocket!','Forty! To the moon!'],
+  ['👑','50 Stamp Royalty!','Fifty stamps — legend status!'],
+  ['🔥','60 Stamp Blaze!','Sixty stamps on fire!'],
+  ['⭐','70 Stamp All-Star!','Seventy! Keep shining!'],
+  ['🌟','80 Stamp Superstar!','Eighty stamps — incredible!'],
+  ['💫','90 Stamp Cosmic!','Ninety! Almost 100!'],
+  ['🎊','100 Stamp Legend!','One hundred stamps minted!'],
 ];
-const ROWS=[[0,1,2,3],[4,5,6],[7,8,9,10],[11,12]];
+const NODE_ICONS=['⭐','🎶','🎸','💫','🌟','🎵','🎯','💜','🌺','🎤','🎹','🥁','🎻','🪈','🌊','⚡','🎨','🦋','🌻','🎀'];
+function ordinal(n){const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+function getNode(i){
+  if(i===0)return{i:0,icon:'🎵',lbl:'Start!',ms:false};
+  if(i%10===0){
+    const m=MS_DATA[Math.floor(i/10)-1]||['🎊',`${i} stamp legend!`,`${i} stamps minted on Base!`];
+    return{i,icon:m[0],lbl:m[1],ms:true,micon:m[0],mtitle:m[1],msub:m[2]};
+  }
+  return{i,icon:NODE_ICONS[(i-1)%NODE_ICONS.length],lbl:`${ordinal(i)} stamp`,ms:false};
+}
+function getVisibleNodes(earned){
+  const nextMs=Math.ceil((earned+1)/10)*10;
+  const maxShow=Math.max(nextMs+2,earned+6);
+  const arr=[];for(let i=0;i<=maxShow;i++)arr.push(getNode(i));
+  return arr;
+}
+function buildRows(nodes){
+  const rows=[];
+  for(let i=0;i<nodes.length;i+=4)rows.push(nodes.slice(i,i+4).map(n=>n.i));
+  return rows;
+}
 
 const st={inst:null,icon:null,dur:null,pending:null,stamps:[],streak:0,mins:0,xp:0,txCount:0};
 let pickedEmoji=null;
@@ -973,26 +996,35 @@ function submit(){
 /* ─── MAP ─── */
 function renderMap(newIdx){
   const earned=st.stamps.length;
-  document.getElementById('mapProg').textContent=`${earned} / 12 stamps`;
+  document.getElementById('mapProg').textContent=`${earned} stamp${earned!==1?'s':''} earned`;
+  const nodes=getVisibleNodes(earned);
+  const rows=buildRows(nodes);
   const snake=document.getElementById('snake');snake.innerHTML='';
-  ROWS.forEach((row,ri)=>{
+  rows.forEach((row,ri)=>{
     const isRev=ri%2===1;
     const rowEl=document.createElement('div');
     rowEl.className='snake-row'+(isRev?' rev':'');
     row.forEach((ni,pos)=>{
-      const node=NODES[ni];
+      const node=getNode(ni);
       const isEarned=ni<=earned&&ni>0;
-      const isCurrent=ni===earned&&ni<NODES.length-1;
+      const isCurrent=ni===earned+1;
       const stamp=st.stamps[ni-1];
       const isMs=node.ms;
       const mn=document.createElement('div');
       mn.className='mn'+(isMs?' wide':'');
       let bc='mb';
-      if(isEarned||ni===0) bc+=' earned'+(isMs?' ms-earned':'');
-      else if(isCurrent) bc+=' current';
-      else bc+=' locked';
+      let lblClass='';
+      if(isEarned||ni===0){
+        bc+=' earned'+(isMs?' ms-earned':'');
+        lblClass=isMs?'l-ms':'l-earned';
+      } else if(isCurrent){
+        bc+=isMs?' ms-current':' current';
+        lblClass=isMs?'l-ms-current':'l-current';
+      } else {
+        bc+=isMs?' ms-target locked':' locked';
+        lblClass=isMs?'l-ms-target':'';
+      }
       const displayIcon=(isEarned&&stamp)?stamp.emoji:node.icon;
-      const lblClass=isCurrent?'l-current':isEarned?isMs?'l-ms':'l-earned':'';
       mn.innerHTML=`<div class="${bc}" id="mb${ni}">${displayIcon}</div><div class="mb-lbl ${lblClass}">${node.lbl}</div>`;
       rowEl.appendChild(mn);
       if(pos<row.length-1){
@@ -1004,7 +1036,7 @@ function renderMap(newIdx){
       }
     });
     snake.appendChild(rowEl);
-    if(ri<ROWS.length-1){
+    if(ri<rows.length-1){
       const lastInRow=row[row.length-1];
       const vDone=lastInRow<earned;
       const vc=document.createElement('div');
@@ -1199,7 +1231,7 @@ function openMysteryBox(){
         revealed.classList.add('show');
         confetti(30);
         // Check milestone
-        const node=NODES[d.newNodeIdx];
+        const node=getNode(d.newNodeIdx);
         if(node&&node.ms){
           setTimeout(()=>{
             document.getElementById('muBadge').textContent=node.micon;
