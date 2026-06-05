@@ -359,6 +359,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 .dpad-btn{width:56px;height:56px;border-radius:14px;border:2px solid var(--border2);background:var(--card);color:var(--text2);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;user-select:none;-webkit-user-select:none;touch-action:manipulation;}
 .dpad-btn:active,.dpad-btn.pressed{background:var(--purple);border-color:var(--purple);color:#fff;transform:scale(.92);}
 .dpad-spacer{width:16px;}
+
 </style>
 </head>
 <body>
@@ -374,39 +375,15 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
       <div class="ob-logo">
         <div class="ob-symbol">🎵</div>
         <div class="ob-logo-name">Crescendo <span class="sym">🎵</span></div>
-        <div class="ob-logo-sub">music practice · blockchain rewards</div>
+        <div class="ob-logo-sub">music practice tracker</div>
       </div>
-      <div class="ob-badge">⚠️ TEST VERSION — no real money or data</div>
 
       <div class="ob-section">
         <div class="ob-section-title">🎵 How Crescendo works</div>
         <div class="ob-item"><div class="ob-item-icon">🎹</div><div>Child logs a practice session — instrument and how long.</div></div>
         <div class="ob-item"><div class="ob-item-icon">👩</div><div>Parent approves it with one tap — a mystery reward box appears!</div></div>
         <div class="ob-item"><div class="ob-item-icon">🎁</div><div>Child opens the surprise box and plays a bonus mini-game to celebrate!</div></div>
-        <div class="ob-item"><div class="ob-item-icon">⛓️</div><div>That fires a simulated on-chain transaction — the child earns a stamp on their journey map.</div></div>
-      </div>
-
-      <div class="ob-accordion">
-        <button class="ob-acc-trigger" id="walletAccBtn" onclick="toggleAcc('walletAccBtn','walletAccBody')">
-          <span>🔐 What is a self-custody wallet?</span>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="ob-acc-body" id="walletAccBody">
-          <div class="we-row-sm"><span class="we-icon-sm">🏦</span><div><strong>Your own digital safe.</strong> Only you hold the key — no bank or company can access it.</div></div>
-          <div class="we-row-sm"><span class="we-icon-sm">🔑</span><div><strong>Private key = the key to the safe.</strong> Whoever has it controls the wallet. In Crescendo, this stays on your device only.</div></div>
-          <div class="we-row-sm"><span class="we-icon-sm">⛓️</span><div><strong>Every stamp is permanent.</strong> Each approved session writes a tiny record to the blockchain — a tamper-proof public ledger, like a digital certificate.</div></div>
-          <div class="we-row-sm"><span class="we-icon-sm">⚗️</span><div><strong>This is a test.</strong> Base Sepolia test network — no real money involved.</div></div>
-        </div>
-      </div>
-
-      <div class="ob-accordion">
-        <button class="ob-acc-trigger" id="legalAccBtn" onclick="toggleAcc('legalAccBtn','legalAccBody')">
-          <span>📋 Legal &amp; test disclaimer</span>
-          <span class="acc-arrow">▼</span>
-        </button>
-        <div class="ob-acc-body" id="legalAccBody">
-          <strong>Test app disclaimer.</strong> This is a prototype for user experience testing only. No real transactions, cryptocurrency, or money is used. No personal data is stored or transmitted. Blockchain interactions are simulated on Base Sepolia test network. By tapping "Next" you confirm you understand this is not a financial product. Do not enter any real wallet addresses or funds.
-        </div>
+        <div class="ob-item"><div class="ob-item-icon">🌟</div><div>Earn stamps and level up along the journey map!</div></div>
       </div>
 
       <button class="ob-start-btn" onclick="obNext(2)">Next →</button>
@@ -469,27 +446,12 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
   </div>
 </div>
 
-<!-- TX OVERLAY -->
-<div class="tx-ov" id="txOv">
-  <div class="tx-sp"></div>
-  <div class="tx-lb">Recording on-chain...</div>
-  <div class="tx-sb" id="txSb">Base Sepolia · waiting for block</div>
-</div>
-
-<!-- SUCCESS BURST -->
-<div class="br-ov" id="brOv">
-  <div class="br-em" id="brEm">🌟</div>
-  <div class="br-lb" id="brLb">Stamp minted!</div>
-  <div class="br-tx" id="brTx">tx 0x...</div>
-</div>
-
 <!-- MILESTONE OVERLAY -->
 <div class="mu-ov" id="muOv">
   <div class="mu-sp">✨ 🎉 ✨</div>
   <span class="mu-badge" id="muBadge">🏆</span>
   <div class="mu-title" id="muTitle">Milestone!</div>
   <div class="mu-sub" id="muSub">You reached a new milestone</div>
-  <div class="mu-tx" id="muTx">tx 0x...</div>
   <button class="mu-close" onclick="closeMu()">Awesome! 🎊</button>
 </div>
 
@@ -563,7 +525,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 <div class="app">
   <div class="view-toggle">
     <button class="toggle-btn active" id="btnC" onclick="switchView('child')">🎵 Child</button>
-    <button class="toggle-btn" id="btnP" onclick="switchView('parent')">👩 Parent</button>
+    <button class="toggle-btn" id="btnP" onclick="switchView('parent')">🎁 Check & Approve</button>
   </div>
 
   <!-- ═══ CHILD VIEW ═══ -->
@@ -661,41 +623,6 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
       <div>
         <div class="par-hi">Welcome back</div>
         <div class="par-name" id="parNameDisplay">Sarah (parent)</div>
-      </div>
-    </div>
-
-    <div class="w-card">
-      <div class="w-card-top">
-        <div class="wc-lb">Family wallet</div>
-        <div class="test-tag">⚗️ Test network</div>
-      </div>
-      <div class="wc-addr">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</div>
-      <div class="wc-row">
-        <div class="wcs"><div class="wcsv" id="wSt">0</div><div class="wcsl">stamps minted</div></div>
-        <div class="wcs"><div class="wcsv" id="wTx">0</div><div class="wcsl">transactions</div></div>
-        <div class="wcs"><div class="wcsv">Base</div><div class="wcsl">network</div></div>
-      </div>
-      <button class="wallet-explainer-trigger" onclick="toggleExplainer()">
-        <span class="we-qmark">?</span>
-        What is a self-custody wallet?
-      </button>
-      <div class="wallet-explainer-panel" id="wePanel">
-        <div class="we-row">
-          <span class="we-icon">🏦</span>
-          <div class="we-text"><strong>Your own digital safe.</strong> Unlike a bank or an app like PayPal, a self-custody wallet means <strong>only you hold the key</strong> to your funds — no company can freeze, access, or lose them on your behalf.</div>
-        </div>
-        <div class="we-row">
-          <span class="we-icon">🔑</span>
-          <div class="we-text"><strong>The private key = the key to the safe.</strong> It's a long secret code. Whoever has it controls the wallet. In Crescendo, this key lives on your device — not on our servers.</div>
-        </div>
-        <div class="we-row">
-          <span class="we-icon">⛓️</span>
-          <div class="we-text"><strong>Every stamp is a real record.</strong> When you approve a practice session, a small transaction is written permanently to the blockchain — a public, tamper-proof ledger. It's like a digital certificate that can never be faked or deleted.</div>
-        </div>
-        <div class="we-row">
-          <span class="we-icon">⚗️</span>
-          <div class="we-text"><strong>This is a test.</strong> The wallet address and transactions shown here are on Base Sepolia — a test network. No real money or crypto is involved. This is just so you can experience what it feels like!</div>
-        </div>
       </div>
     </div>
 
@@ -867,7 +794,7 @@ function showMoreDur(){}
 const SURPRISE_EMOJIS=['⭐','🌟','💫','✨','🎵','🎶','🏆','🎖️','🥇','💎','🔥','🌈','🎊','🎉','💪','🦋','🌺','🍀','🎯','🚀','🎀','🍭','🦄','🌙','👑','🎸','🌻','🍩','🧁','🪐','💜','🎪','🌊','⚡','🍉','🧸','🎠','🪄','💝','🫧','🐉','🦁','🐬','🦈','🎨','🎭','🎪','🏖️','🎢','🎡','🌮','🍕','🍦','🧊','🎲','🃏','🪁','🛸','🌋','🏔️','🦚','🦜','🐝','🦩','🐙','🪸','🍄','🌵','🪻','🌸','🌼','💐','🧿','🪬','🔮','🧲','💡','🎃','🪩','🎱','🏅','🎗️','🥁','🎺','🎻','🪈','🎤','🎧','🩰','🧩','🎮','🕹️','🤖','👾','🛹','🏄','🧗','🎿','⛷️','🏋️','🤸','🧘'];
 
 const MS_DATA=[
-  ['🏆','10 Stamp Champion!','Ten stamps on Base!'],
+  ['🏆','10 Stamp Champion!','Ten sessions approved!'],
   ['🌈','20 Stamp Rainbow!','Twenty! Unstoppable!'],
   ['💎','30 Stamp Diamond!','Thirty stamps — sparkling!'],
   ['🚀','40 Stamp Rocket!','Forty! To the moon!'],
@@ -876,14 +803,14 @@ const MS_DATA=[
   ['⭐','70 Stamp All-Star!','Seventy! Keep shining!'],
   ['🌟','80 Stamp Superstar!','Eighty stamps — incredible!'],
   ['💫','90 Stamp Cosmic!','Ninety! Almost 100!'],
-  ['🎊','100 Stamp Legend!','One hundred stamps minted!'],
+  ['🎊','100 Stamp Legend!','One hundred sessions! Amazing!'],
 ];
 const NODE_ICONS=['⭐','🎶','🎸','💫','🌟','🎵','🎯','💜','🌺','🎤','🎹','🥁','🎻','🪈','🌊','⚡','🎨','🦋','🌻','🎀'];
 function ordinal(n){const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
 function getNode(i){
   if(i===0)return{i:0,icon:'🎵',lbl:'Start!',ms:false};
   if(i%10===0){
-    const m=MS_DATA[Math.floor(i/10)-1]||['🎊',`${i} stamp legend!`,`${i} stamps minted on Base!`];
+    const m=MS_DATA[Math.floor(i/10)-1]||['🎊',`${i} stamp legend!`,`${i} sessions approved!`];
     return{i,icon:m[0],lbl:m[1],ms:true,micon:m[0],mtitle:m[1],msub:m[2]};
   }
   return{i,icon:NODE_ICONS[(i-1)%NODE_ICONS.length],lbl:`${ordinal(i)} stamp`,ms:false};
@@ -938,9 +865,6 @@ function switchView(v){
   renderParent();
 }
 
-function toggleExplainer(){
-  document.getElementById('wePanel').classList.toggle('open');
-}
 
 function pickLogo(btn){
   document.querySelectorAll('.inst-big-btn').forEach(b=>b.classList.remove('selected'));
@@ -1098,17 +1022,15 @@ function renderColl(anim){
     hl.innerHTML=[...st.stamps].reverse().slice(0,4).map(s=>`
       <div class="hi-item"><div class="hi-em">${s.emoji}</div>
         <div><div class="hi-t">${s.inst} · ${s.dur} min</div><div class="hi-s">${s.time}</div></div>
-        <div class="hi-tx">${s.tx.slice(0,10)}...</div></div>`).join('');
+      </div>`).join('');
   } else {ht.style.display='none';hl.innerHTML='';}
 }
 
 /* ─── PARENT ─── */
 function renderParent(){
-  document.getElementById('wSt').textContent=st.stamps.length;
-  document.getElementById('wTx').textContent=st.txCount;
   const c=document.getElementById('pendReq');
   if(!st.pending){
-    c.innerHTML=`<div class="no-req"><div class="ni">🎮</div><p>No pending sessions right now.<br>Ask your child to log a practice!</p></div>`;
+    c.innerHTML=`<div class="no-req"><div class="ni">🎁</div><p>No pending sessions right now.<br>Ask your child to log a practice!</p></div>`;
   } else {
     const s=st.pending;
     c.innerHTML=`<div class="req-card hot">
@@ -1125,12 +1047,12 @@ function renderParent(){
   }
   const ph=document.getElementById('parHist');
   if(st.stamps.length===0){
-    ph.innerHTML=`<div class="empty-st"><div class="e-icon">🌱</div><p>Approved stamps appear here<br>with on-chain tx hash</p></div>`;
+    ph.innerHTML=`<div class="empty-st"><div class="e-icon">🌱</div><p>Approved sessions will appear here</p></div>`;
   } else {
     ph.innerHTML=[...st.stamps].reverse().map(s=>`
       <div class="hi-item"><div class="hi-em">${s.emoji}</div>
-        <div><div class="hi-t">${s.inst} · ${s.dur} min</div><div class="hi-s">Minted ${s.time}</div></div>
-        <div class="hi-tx">${s.tx.slice(0,10)}...</div></div>`).join('');
+        <div><div class="hi-t">${s.inst} · ${s.dur} min</div><div class="hi-s">Approved ${s.time}</div></div>
+      </div>`).join('');
   }
 }
 
@@ -1138,55 +1060,27 @@ function renderParent(){
 function approve(){
   if(!st.pending)return;
   const sess={...st.pending};
+  const newNodeIdx=st.stamps.length+1;
 
-  const ov=document.getElementById('txOv');ov.classList.add('show');
-  const steps=[
-    'Base Sepolia · waiting for block...',
-    'Signing with parent wallet...',
-    'ERC-1155 calldata ready...',
-    'Broadcasting transaction...',
-    'Block confirmation 1 of 2...',
-    'Block confirmation 2 of 2...',
-    'Confirmed ✓'
-  ];
-  let si=0;const sb=document.getElementById('txSb');
-  const iv=setInterval(()=>{if(si<steps.length)sb.textContent=steps[si++];else clearInterval(iv);},500);
+  st.pending=null;st.streak=Math.min(st.streak+1,99);st.mins+=sess.dur;st.xp+=Math.floor(sess.dur*1.5+10);
+  clearInst();
+  document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
+  const durSel=document.getElementById('durMoreSel');
+  if(durSel) durSel.selectedIndex=0;
+  st.dur=null;
+  document.getElementById('logBtn').textContent='📝 Send to parent';
+  document.getElementById('logBtn').disabled=true;
+  document.getElementById('sentCard').classList.remove('show');
+
+  pendingMysteryData={emoji:null,sess,newNodeIdx};
+  confetti(60);
+  toast('🎁 Approved! A surprise is waiting!');
 
   setTimeout(()=>{
-    ov.classList.remove('show');clearInterval(iv);
-    const tx=fakeTx();
-    const newNodeIdx=st.stamps.length+1;
-    // Don't assign emoji yet — child picks it via mystery box
-    st.pending=null;st.txCount++;st.streak=Math.min(st.streak+1,99);st.mins+=sess.dur;st.xp+=Math.floor(sess.dur*1.5+10);
-    clearInst();
-    document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
-    const durSel=document.getElementById('durMoreSel');
-    if(durSel) durSel.selectedIndex=0;
-    st.dur=null;
-    document.getElementById('logBtn').textContent='📝 Send to parent';
-    document.getElementById('logBtn').disabled=true;
-    document.getElementById('sentCard').classList.remove('show');
-
-    // Show burst briefly
-    const bo=document.getElementById('brOv');
-    document.getElementById('brEm').textContent='🎁';
-    document.getElementById('brLb').textContent='Approved! 🎉';
-    document.getElementById('brTx').textContent='tx '+tx;
-    bo.classList.add('show');
-    confetti(60);
-
-    // Store pending mystery data WITHOUT emoji — will be chosen on box click
-    pendingMysteryData={emoji:null,tx,sess,newNodeIdx};
-
-    setTimeout(()=>{
-      bo.classList.remove('show');
-      renderParent();
-      // Switch to child view and show mystery box
-      switchView('child');
-      setTimeout(()=>showMysteryBox(),600);
-    },2500);
-    toast(`🎁 Approved! Surprise waiting on Base!`);
-  },3500);
+    renderParent();
+    switchView('child');
+    setTimeout(()=>showMysteryBox(),600);
+  },800);
 }
 
 /* ─── MYSTERY BOX ─── */
@@ -1221,7 +1115,7 @@ function openMysteryBox(){
       box.textContent=emoji;
       // Now push the stamp with the chosen emoji
       const d=pendingMysteryData;
-      st.stamps.push({emoji,inst:d.sess.inst,icon:d.sess.icon,dur:d.sess.dur,time:tNow(),tx:d.tx});
+      st.stamps.push({emoji,inst:d.sess.inst,icon:d.sess.icon,dur:d.sess.dur,time:tNow()});
       saveState();
       renderColl(true);renderMap(d.newNodeIdx);renderParent();
 
@@ -1238,7 +1132,6 @@ function openMysteryBox(){
             document.getElementById('muBadge').textContent=node.micon;
             document.getElementById('muTitle').textContent=node.mtitle;
             document.getElementById('muSub').textContent=node.msub;
-            document.getElementById('muTx').textContent='tx '+d.tx;
             document.getElementById('muOv').classList.add('show');
             confetti(100);
           },1500);
