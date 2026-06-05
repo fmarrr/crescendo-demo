@@ -454,8 +454,12 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
         <div class="ob-item"><div class="ob-item-icon">🌟</div><div>Earn stamps and level up along the journey map!</div></div>
       </div>
 
-      <button class="ob-start-btn" onclick="obNext(2)">Next →</button>
-      <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text3);">By continuing you agree to our <button class="pp-link" onclick="openPrivacy()">Privacy Policy</button></p>
+      <label style="display:flex;align-items:flex-start;gap:10px;background:var(--bg3);border:1.5px solid var(--border);border-radius:12px;padding:12px 13px;cursor:pointer;margin-bottom:12px;" id="consentLabel">
+        <input type="checkbox" id="consentBox" onchange="checkConsent()" style="width:18px;height:18px;flex-shrink:0;margin-top:1px;accent-color:var(--purple);cursor:pointer;"/>
+        <span style="font-size:12px;color:var(--text2);line-height:1.55;">I am the parent or guardian. I agree that practice data is stored locally on this device and understand how data is used per the <button class="pp-link" onclick="event.preventDefault();openPrivacy()">Privacy Policy</button>.</span>
+      </label>
+      <button class="ob-start-btn" id="obNextBtn" onclick="obNext(2)" disabled>Next →</button>
+      <p style="text-align:center;margin-top:10px;font-size:11px;color:var(--text3);">Set up takes 1 minute · No account needed</p>
     </div>
 
     <!-- STEP 2: Child setup -->
@@ -730,6 +734,11 @@ const ob = { childName:'Mia', avatar:'🦊', instruments:[{name:'Piano',icon:'�
 
 function openPrivacy(){document.getElementById('ppOv').classList.add('show');}
 function closePrivacy(){document.getElementById('ppOv').classList.remove('show');}
+function checkConsent(){
+  const checked=document.getElementById('consentBox').checked;
+  document.getElementById('obNextBtn').disabled=!checked;
+  document.getElementById('consentLabel').style.borderColor=checked?'var(--purple)':'var(--border)';
+}
 
 function obNext(step){
   document.querySelectorAll('.ob-step').forEach(s=>s.classList.remove('active'));
