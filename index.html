@@ -1063,6 +1063,8 @@ function approve(){
   const newNodeIdx=st.stamps.length+1;
 
   st.pending=null;st.streak=Math.min(st.streak+1,99);st.mins+=sess.dur;st.xp+=Math.floor(sess.dur*1.5+10);
+  saveState();
+  renderParent();
   clearInst();
   document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
   const durSel=document.getElementById('durMoreSel');
@@ -1077,7 +1079,6 @@ function approve(){
   toast('🎁 Approved! A surprise is waiting!');
 
   setTimeout(()=>{
-    renderParent();
     switchView('child');
     setTimeout(()=>showMysteryBox(),600);
   },800);
