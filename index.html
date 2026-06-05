@@ -89,6 +89,21 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 .ob-back-btn{width:100%;padding:10px;border-radius:14px;border:1.5px solid var(--border);background:transparent;color:var(--text3);font-family:'Fredoka',sans-serif;font-size:14px;cursor:pointer;transition:all .2s;margin-top:8px;}
 .ob-back-btn:hover{border-color:var(--border2);color:var(--text2);}
 
+/* ══ PRIVACY POLICY OVERLAY ══ */
+.pp-ov{display:none;position:fixed;inset:0;z-index:700;background:var(--bg);overflow-y:auto;padding:24px 18px;}
+.pp-ov.show{display:block;}
+.pp-card{max-width:380px;margin:0 auto;}
+.pp-back{display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text2);font-family:'Fredoka',sans-serif;font-size:15px;cursor:pointer;padding:0 0 18px;transition:color .15s;}
+.pp-back:hover{color:var(--text);}
+.pp-title{font-size:22px;font-weight:700;color:var(--purple2);margin-bottom:4px;}
+.pp-date{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:20px;}
+.pp-section{margin-bottom:18px;}
+.pp-section-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:7px;}
+.pp-body{font-size:13px;color:var(--text2);line-height:1.7;}
+.pp-body strong{color:var(--text);}
+.pp-link{color:var(--purple2);background:none;border:none;font-family:'Fredoka',sans-serif;font-size:13px;cursor:pointer;padding:0;text-decoration:underline;}
+.pp-link:hover{color:var(--purple);}
+
 /* ══ APP ══ */
 .app{position:relative;z-index:1;max-width:430px;margin:0 auto;padding:0 0 60px;min-height:100vh;}
 .view-toggle{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 14px;gap:8px;position:sticky;top:0;z-index:100;}
@@ -365,6 +380,60 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 <div class="stars"></div>
 <div class="toast" id="toast"></div>
 
+<!-- ═══ PRIVACY POLICY ═══ -->
+<div class="pp-ov" id="ppOv">
+  <div class="pp-card">
+    <button class="pp-back" onclick="closePrivacy()">← Back</button>
+    <div class="pp-title">Privacy Policy</div>
+    <div class="pp-date">Last updated: June 2026</div>
+
+    <div class="pp-section">
+      <div class="pp-section-title">Who we are</div>
+      <div class="pp-body">Crescendo is a music practice tracker for children. This policy explains what data the app collects, how it is used, and your rights as a parent or guardian.</div>
+    </div>
+
+    <div class="pp-section">
+      <div class="pp-section-title">What data we collect</div>
+      <div class="pp-body">
+        <strong>Stored only on your device (never sent to us):</strong><br>
+        · Your child's name and chosen avatar<br>
+        · Parent name<br>
+        · Practice session logs (instrument, duration, date)<br>
+        · Stamps earned, XP, streak count<br><br>
+        <strong>If you give consent, we may collect anonymously:</strong><br>
+        · Number of practice sessions logged<br>
+        · Instruments used (e.g. "Piano")<br>
+        · Session durations<br>
+        · Features used (stamps, games)<br>
+        · App version and device OS<br><br>
+        We <strong>never</strong> collect your child's real name, email address, precise location, photos, or any advertising identifiers.
+      </div>
+    </div>
+
+    <div class="pp-section">
+      <div class="pp-section-title">How we use data</div>
+      <div class="pp-body">Anonymous usage data is used only to understand how families use Crescendo and to improve the app. It is never sold or shared with advertisers or third parties.</div>
+    </div>
+
+    <div class="pp-section">
+      <div class="pp-section-title">Children's privacy (COPPA &amp; UK GDPR)</div>
+      <div class="pp-body">Crescendo is designed for children under 13. We comply with the Children's Online Privacy Protection Act (COPPA) and UK GDPR. We do not collect personal information from children without verifiable parental consent. All personal data stays on your device.</div>
+    </div>
+
+    <div class="pp-section">
+      <div class="pp-section-title">Data storage</div>
+      <div class="pp-body">All personal data (names, practice logs) is stored locally on your device using your browser or app's local storage. It is never uploaded to our servers. You can delete all data at any time using the "Reset progress" button in the app.</div>
+    </div>
+
+    <div class="pp-section">
+      <div class="pp-section-title">Your rights</div>
+      <div class="pp-body">You may withdraw consent at any time by resetting the app. For questions or data deletion requests, contact us at: <strong>hello@crescendo.app</strong></div>
+    </div>
+
+    <button class="pp-back" onclick="closePrivacy()" style="padding:0;margin-top:8px;">← Back to setup</button>
+  </div>
+</div>
+
 <!-- ═══ ONBOARDING ═══ -->
 <div class="onboard-screen" id="onboard">
   <div class="ob-card">
@@ -386,6 +455,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
       </div>
 
       <button class="ob-start-btn" onclick="obNext(2)">Next →</button>
+      <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text3);">By continuing you agree to our <button class="pp-link" onclick="openPrivacy()">Privacy Policy</button></p>
     </div>
 
     <!-- STEP 2: Child setup -->
@@ -657,6 +727,9 @@ buildAvatarGrid();
 
 // ─── ONBOARDING ──────────────────────────────────────────────────────────
 const ob = { childName:'Mia', avatar:'🦊', instruments:[{name:'Piano',icon:'🎹'}], parentName:'Sarah' };
+
+function openPrivacy(){document.getElementById('ppOv').classList.add('show');}
+function closePrivacy(){document.getElementById('ppOv').classList.remove('show');}
 
 function obNext(step){
   document.querySelectorAll('.ob-step').forEach(s=>s.classList.remove('active'));
