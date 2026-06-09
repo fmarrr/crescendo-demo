@@ -1,39 +1,37 @@
-# Crescendo - demo 🎵
+# Crescendo Kids 🎵
 
-A music practice tracker that rewards children with blockchain-based stamps and mini-games.
+A music practice tracker for children. Kids log their daily practice sessions, a parent approves with one tap, and the child earns surprise emoji stamps and plays bonus mini-games to celebrate.
 
 ## What it does
 
-Kids log their practice sessions — instrument and duration. A parent approves with one tap, which triggers a simulated on-chain transaction. The child then opens a mystery reward box to reveal a surprise emoji stamp, and plays a bonus pixel mini-game to celebrate.
+Kids log a practice session — instrument and duration. A parent approves it with one tap. The child then opens a mystery reward box to reveal a surprise emoji stamp, and plays a bonus pixel mini-game to celebrate.
 
 **Child view:** Log practice → earn stamps → progress along a journey map → collect emoji rewards → play bonus games
 
-**Parent view:** Review & approve sessions → watch the family wallet grow → see on-chain tx history
+**Parent view:** Review & approve sessions → track history
 
 ## Key features
 
 - **Onboarding** — child name, avatar (30+ choices), multi-instrument selection, parent setup
+- **9 instruments** — Piano, Cello, Violin, Drums, Guitar, Trumpet, Flute, Clarinet, Recorder (+ more)
 - **Mystery box rewards** — tap to reveal a randomly selected emoji from 100+ options with spinning animation
 - **4 pixel mini-games** — Catch Stars, Pixel Pong, Snake, Dodge Comets — with on-screen d-pad controls
-- **Journey map** — snake-path progress tracker with milestone celebrations at stamps 3, 6, 10, 12
-- **XP & levelling** — earn XP per practice session, level up over time
-- **Blockchain simulation** — simulated ERC-1155 minting on Base Sepolia with fake tx hashes and wallet display
+- **Journey map** — snake-path progress tracker with milestone celebrations every 10 stamps
+- **XP & levelling** — earn XP per approved session, level up over time
+- **100% local** — all data stored on device, no account needed, no server
 
 ## Tech
 
-This prototype is a single self-contained HTML file — no build step, no dependencies, no server. Just open `index.html`.
+Single self-contained HTML file — no build step, no dependencies, no server. Open `index.html` in any browser or run as a Capacitor iOS app.
 
-**Production target stack:** Next.js 14 · Privy · Base L2 · ERC-1155 · Supabase · Vercel
+**iOS:** Capacitor · Bundle ID `com.crescendokids.app` · Deployment target iOS 16+
 
 ## Status
 
-Prototype for UX testing. No real transactions, cryptocurrency, or personal data is involved. All blockchain interactions are simulated on Base Sepolia test network.
+Heading to App Store submission. Kids category compliant — no third-party SDKs, no analytics, no external links, no in-app purchases. COPPA & UK GDPR compliant.
 
 ## Possible Features Next
 
-- **Real Base mainnet deployment** — move from Sepolia testnet to Base mainnet with Privy embedded wallets and actual ERC-1155 minting
-- **Token → pocket money** — explore letting children redeem minted stamps for real pocket money, either via parent-set exchange rates or automated allowance top-ups triggered on-chain
-- **Tradeable collectibles** — stamps as tradeable NFTs that kids can swap with friends or showcase in a public profile
-- **Teacher / tutor integration** — allow music teachers to verify practice and set weekly goals directly in the app
-- **Multi-child support** — family dashboard where parents manage multiple children's journeys from one wallet
-- **Other reward utility** — yet to be discovered; the on-chain stamps are composable primitives that could unlock future use cases (merch discounts, concert ticket access, scholarship portfolios, etc.)
+- **Teacher / tutor integration** — allow music teachers to verify practice sessions and set weekly goals
+- **Multi-child support** — family dashboard where parents manage multiple children from one place
+- **Backend practice ledger + fintech rewards** — a possible future direction: record each approved practice session on a blockchain backend as a verifiable proof of effort, then integrate with a fintech/open banking layer so that hitting a milestone (e.g. 10 sessions approved) automatically triggers a real pocket money reward into the child's account. Keeps the fun of earning stamps while giving them real-world value — without any crypto exposure for the child.
