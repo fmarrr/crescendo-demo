@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+
+    <!-- Diagonal gradient: deep violet → app purple → app pink -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#2d1b6e"/>
+      <stop offset="48%"  stop-color="#7c6af7"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+
+    <!-- Centre brightening sheen -->
+    <radialGradient id="sheen" cx="48%" cy="46%" r="58%">
+      <stop offset="0%"   stop-color="#a89afa" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#a89afa" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Note fill: near-black with slight depth -->
+    <linearGradient id="noteFill" x1="20%" y1="15%" x2="80%" y2="85%">
+      <stop offset="0%"   stop-color="#1e1c1c"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+
+    <!-- Shadow under note -->
+    <filter id="noteShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="20"
+                    flood-color="#0d0520" flood-opacity="0.55"/>
+    </filter>
+
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#sheen)"/>
+
+  <!-- Stars -->
+  <g fill="white">
+    <circle cx="88"  cy="72"  r="2.5" opacity="0.42"/>
+    <circle cx="235" cy="148" r="1.5" opacity="0.28"/>
+    <circle cx="168" cy="294" r="2"   opacity="0.36"/>
+    <circle cx="52"  cy="440" r="1.8" opacity="0.26"/>
+    <circle cx="122" cy="648" r="2"   opacity="0.33"/>
+    <circle cx="76"  cy="808" r="1.5" opacity="0.26"/>
+    <circle cx="200" cy="912" r="2.2" opacity="0.40"/>
+    <circle cx="378" cy="52"  r="2"   opacity="0.40"/>
+    <circle cx="645" cy="38"  r="1.5" opacity="0.30"/>
+    <circle cx="822" cy="82"  r="2.5" opacity="0.48"/>
+    <circle cx="942" cy="152" r="1.5" opacity="0.26"/>
+    <circle cx="978" cy="374" r="2"   opacity="0.38"/>
+    <circle cx="902" cy="742" r="2"   opacity="0.36"/>
+    <circle cx="814" cy="954" r="2"   opacity="0.40"/>
+    <circle cx="592" cy="972" r="1.5" opacity="0.26"/>
+    <circle cx="424" cy="960" r="2"   opacity="0.36"/>
+    <circle cx="760" cy="18"  r="2"   opacity="0.30"/>
+    <circle cx="142" cy="182" r="1.5" opacity="0.20"/>
+    <circle cx="950" cy="568" r="1.8" opacity="0.22"/>
+  </g>
+
+  <!-- ── MUSICAL NOTE (🎵 style: two beamed eighth notes) ─────────
+       Pure SVG vectors — crisp at any size, no rasterisation.
+
+       Coordinates (pre-scale):
+         Left head   cx=335  cy=731  rx=105  ry=76
+         Right head  cx=668  cy=761  rx=105  ry=76
+         Left stem   x=418   y=217   w=42    h=514
+         Right stem  x=752   y=257   w=42    h=504
+         Beam        parallelogram across tops of both stems
+
+       All scaled 1.12× from canvas centre (512,512) so the note
+       fills ~62 % of the canvas with comfortable breathing room.
+  ──────────────────────────────────────────────────────────────── -->
+  <g transform="translate(512,512) scale(1.12) translate(-512,-512)"
+     fill="url(#noteFill)" filter="url(#noteShadow)">
+
+    <!-- Beam (angled, thicker band across top) -->
+    <path d="M 418,217 L 794,257 L 794,337 L 418,297 Z"/>
+
+    <!-- Left stem -->
+    <rect x="418" y="217" width="42" height="514"/>
+
+    <!-- Right stem -->
+    <rect x="752" y="257" width="42" height="504"/>
+
+    <!-- Left note head -->
+    <ellipse cx="335" cy="731" rx="105" ry="76"
+             transform="rotate(-20, 335, 731)"/>
+
+    <!-- Right note head -->
+    <ellipse cx="668" cy="761" rx="105" ry="76"
+             transform="rotate(-20, 668, 761)"/>
+
+  </g>
+
+  <!-- Subtle highlight on note heads (gives slight 3-D lift) -->
+  <g transform="translate(512,512) scale(1.12) translate(-512,-512)"
+     fill="white" opacity="0.13">
+    <ellipse cx="305" cy="707" rx="52" ry="36"
+             transform="rotate(-20, 305, 707)"/>
+    <ellipse cx="638" cy="737" rx="52" ry="36"
+             transform="rotate(-20, 638, 737)"/>
+  </g>
+
+</svg>
