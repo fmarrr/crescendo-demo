@@ -366,6 +366,48 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);ove
 .dpad-btn:active,.dpad-btn.pressed{background:var(--purple);border-color:var(--purple);color:#fff;transform:scale(.92);}
 .dpad-spacer{width:16px;}
 
+/* ══ STUDENT SWITCHER ══ */
+.student-bar{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;margin-bottom:6px;}
+.student-bar::-webkit-scrollbar{height:0;}
+.student-pill{flex-shrink:0;display:flex;align-items:center;gap:7px;padding:6px 13px 6px 8px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg3);color:var(--text2);font-family:'Fredoka',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.student-pill .sp-av{font-size:18px;line-height:1;}
+.student-pill.active{border-color:var(--purple);background:rgba(124,106,247,.15);color:var(--purple2);box-shadow:0 0 12px rgba(124,106,247,.3);}
+.student-pill:hover:not(.active){border-color:var(--border2);color:var(--text);}
+.student-pill.add{color:var(--text3);border-style:dashed;}
+.student-pill.add .sp-av{font-size:15px;}
+
+/* ══ PRACTICE CHECKLIST ══ */
+.check-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:14px;margin-bottom:16px;}
+.chk-inst-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.chk-inst-pill{padding:5px 11px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg3);color:var(--text2);font-family:'Fredoka',sans-serif;font-size:12px;cursor:pointer;transition:all .16s;}
+.chk-inst-pill.active{border-color:var(--teal);background:rgba(34,211,238,.12);color:var(--teal);}
+.chk-empty{text-align:center;color:var(--text3);font-size:12px;line-height:1.6;padding:14px 8px;}
+.chk-item{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--border);}
+.chk-item:last-child{border-bottom:none;}
+.chk-check{width:24px;height:24px;flex-shrink:0;border-radius:7px;border:2px solid var(--border2);background:var(--bg3);color:#0a1a14;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .16s;font-family:'Fredoka',sans-serif;}
+.chk-check:hover{border-color:var(--green);}
+.chk-item.done .chk-check{background:var(--green);border-color:var(--green);}
+.chk-text{flex:1;font-size:14px;color:var(--text);line-height:1.4;display:flex;flex-wrap:wrap;align-items:center;gap:7px;}
+.chk-item.done .chk-text{color:var(--text3);text-decoration:line-through;text-decoration-color:var(--text3);}
+.chk-by{font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:6px;text-decoration:none;display:inline-block;}
+.chk-item.done .chk-by{opacity:.5;}
+.chk-by-student{background:rgba(124,106,247,.15);color:var(--purple2);}
+.chk-by-teacher{background:rgba(34,211,238,.13);color:var(--teal);}
+.chk-by-parent{background:rgba(244,114,182,.14);color:var(--pink);}
+.chk-del{flex-shrink:0;background:none;border:none;color:var(--text3);font-size:19px;line-height:1;cursor:pointer;padding:0 4px;transition:color .15s;}
+.chk-del:hover{color:var(--red);}
+.chk-add{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+.chk-input{flex:1 1 100%;padding:10px 12px;border-radius:11px;border:1.5px solid var(--border);background:var(--bg3);color:var(--text);font-family:'Fredoka',sans-serif;font-size:16px;outline:none;transition:border-color .16s;}
+.chk-input:focus{border-color:var(--purple);}
+.chk-input::placeholder{color:var(--text3);}
+.chk-by-sel{flex:1;min-width:120px;padding:9px 10px;border-radius:11px;border:1.5px solid var(--border);background:var(--bg3);color:var(--text2);font-family:'Fredoka',sans-serif;font-size:13px;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;}
+.chk-add-btn{flex-shrink:0;padding:9px 18px;border-radius:11px;border:none;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-family:'Fredoka',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:transform .15s;}
+.chk-add-btn:active{transform:scale(.95);}
+.chk-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:9px;border-top:1px solid var(--border);}
+.chk-prog{font-size:11px;font-family:'DM Mono',monospace;color:var(--text3);}
+.chk-clear{background:none;border:none;color:var(--text3);font-family:'Fredoka',sans-serif;font-size:12px;cursor:pointer;text-decoration:underline;}
+.chk-clear:hover{color:var(--text2);}
+
 </style>
 </head>
 <body>
@@ -455,7 +497,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);ove
       </div>
       <div class="ob-logo" style="margin-bottom:12px;">
         <div class="ob-symbol" style="font-size:36px;">🦊</div>
-        <div class="ob-logo-name" style="font-size:24px;">Set up the student</div>
+        <div class="ob-logo-name" style="font-size:24px;" id="obStep2Title">Set up the student</div>
       </div>
       <div class="ob-setup-label">What's the student's name?</div>
       <input class="ob-input" id="obChildName" type="text" placeholder="e.g. Mia" maxlength="20" oninput="checkObStep2()"/>
@@ -589,6 +631,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);ove
 
   <!-- ═══ CHILD VIEW ═══ -->
   <div class="view active" id="childView">
+    <div class="student-bar" id="studentBar"></div>
     <div class="child-header">
       <div class="nota-wordmark"><span>Crescendo</span> 🎵 practice journal</div>
       <div class="avatar-ring" id="avatarRing">🦊</div>
@@ -658,6 +701,22 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);ove
       <button class="go-parent-btn" onclick="switchView('parent')">
         Go to Parent view <span class="go-parent-arrow">👩→</span>
       </button>
+    </div>
+
+    <div class="sec-title">📋 Practice checklist</div>
+    <div class="check-card">
+      <div class="chk-inst-row" id="chkInstRow"></div>
+      <div id="chkList"></div>
+      <div class="chk-add">
+        <input class="chk-input" id="chkInput" type="text" maxlength="80" placeholder="Add a practice task…" onkeydown="if(event.key==='Enter'){event.preventDefault();addTodo();}"/>
+        <select class="chk-by-sel" id="chkBy">
+          <option value="Student">🎓 Added by student</option>
+          <option value="Teacher">🧑‍🏫 Added by teacher</option>
+          <option value="Parent">👩 Added by parent</option>
+        </select>
+        <button class="chk-add-btn" onclick="addTodo()">＋ Add</button>
+      </div>
+      <div class="chk-foot" id="chkFoot"></div>
     </div>
 
     <div class="sec-title">🗺️ Journey map</div>
@@ -800,7 +859,16 @@ function removeObDropdownInst(name){
 let editingProfile=false;
 
 function obBack2(){
-  if(editingProfile){
+  if(newStudentMode){
+    // cancel adding a student → drop the uncommitted blank profile, restore previous
+    profiles=profiles.filter(p=>p.id!==activeId);
+    activeId=addStudentPrevId;
+    newStudentMode=false;
+    loadActive();
+    refreshAll();
+    document.getElementById('onboard').classList.add('hidden');
+    document.getElementById('obStep2BackBtn').textContent='← Back';
+  } else if(editingProfile){
     document.getElementById('onboard').classList.add('hidden');
     editingProfile=false;
   } else {
@@ -809,7 +877,8 @@ function obBack2(){
 }
 
 function editProfile(){
-  editingProfile=true;
+  editingProfile=true; newStudentMode=false;
+  const t=document.getElementById('obStep2Title'); if(t) t.textContent='Edit profile';
   // Pre-fill current values into the onboarding form
   document.getElementById('obChildName').value=ob.childName||'';
   document.getElementById('obParentName').value=ob.parentName||'';
@@ -834,22 +903,175 @@ function startApp(){
   const cn=document.getElementById('obChildName').value.trim();
   const pn=document.getElementById('obParentName').value.trim();
   if(cn) ob.childName=cn;
-  if(pn) ob.parentName=pn;
-  document.getElementById('childNameDisplay').textContent=ob.childName+"'s Journal";
-  document.getElementById('parNameDisplay').textContent=ob.parentName+" (parent)";
-  document.getElementById('avatarRing').textContent=ob.avatar;
-  // Pre-select first instrument in log card if available
-  if(ob.instruments.length>0){
+  if(!ob.childName) ob.childName='Student';
+  if(pn) parentName=pn;
+  ob.parentName=parentName;
+  if(!ob.instruments||!ob.instruments.length) ob.instruments=[{name:'Piano',icon:'🎹'}];
+  if(!activeProfile()){
+    // first-ever student → create the initial profile
+    const id=genId();
+    profiles.push({id,ob:{childName:ob.childName,avatar:ob.avatar,instruments:ob.instruments.map(i=>({name:i.name,icon:i.icon}))},st:freshSt(),checklists:{}});
+    activeId=id;
+    loadActive();
+  } else {
+    // editing the active student, or committing a freshly-added one
+    syncLive();
+  }
+  document.getElementById('onboard').classList.add('hidden');
+  document.getElementById('obStep2BackBtn').textContent='← Back';
+  editingProfile=false; newStudentMode=false;
+  saveState();
+  refreshAll();
+  switchView('child');
+}
+
+
+// ─── STUDENT SWITCHER ────────────────────────────────────────────────────────
+function renderStudentBar(){
+  const bar=document.getElementById('studentBar'); if(!bar)return;
+  bar.innerHTML='';
+  profiles.forEach(p=>{
+    const el=document.createElement('button');
+    el.className='student-pill'+(p.id===activeId?' active':'');
+    el.innerHTML=`<span class="sp-av">${p.ob.avatar||'🦊'}</span><span class="sp-nm">${escapeHtml(p.ob.childName||'Student')}</span>`;
+    el.onclick=()=>switchStudent(p.id);
+    bar.appendChild(el);
+  });
+  const add=document.createElement('button');
+  add.className='student-pill add';
+  add.innerHTML='<span class="sp-av">＋</span><span class="sp-nm">Add student</span>';
+  add.onclick=addStudent;
+  bar.appendChild(add);
+}
+
+function switchStudent(id){
+  if(id===activeId)return;
+  syncLive(); saveState();
+  activeId=id; loadActive();
+  saveState();
+  refreshAll();
+  switchView('child');
+  toast('👋 Now showing '+(ob.childName||'student'));
+}
+
+function addStudent(){
+  syncLive(); saveState();
+  addStudentPrevId=activeId;
+  const id=genId();
+  profiles.push({id,ob:{childName:'',avatar:'🦊',instruments:[]},st:freshSt(),checklists:{}});
+  activeId=id;
+  loadActive();
+  refreshAll();
+  newStudentMode=true; editingProfile=false;
+  // prep a blank onboarding form (skip the consent step — parent already consented)
+  document.getElementById('obChildName').value='';
+  document.getElementById('obParentName').value=parentName||'';
+  document.querySelectorAll('.ob-avatar-btn').forEach(b=>b.classList.toggle('sel',b.dataset.av==='🦊'));
+  const sym=document.querySelector('#obStep2 .ob-symbol'); if(sym) sym.textContent='🦊';
+  document.querySelectorAll('.ob-inst-btn').forEach(b=>b.classList.remove('sel'));
+  ob.instruments=[]; updateObInstChips();
+  const t=document.getElementById('obStep2Title'); if(t) t.textContent='Add a student';
+  document.getElementById('obStep2BackBtn').textContent='✕ Cancel';
+  document.getElementById('onboard').classList.remove('hidden');
+  obNext(2);
+}
+
+// ─── FULL UI REFRESH (after load / student switch / edit) ─────────────────────
+function refreshAll(){
+  document.getElementById('childNameDisplay').textContent=(ob.childName||'Student')+"'s Journal";
+  document.getElementById('parNameDisplay').textContent=(parentName||'Parent')+' (parent)';
+  document.getElementById('avatarRing').textContent=ob.avatar||'🦊';
+  // reset instrument + duration selection UI
+  document.querySelectorAll('.inst-big-btn').forEach(b=>b.classList.remove('selected'));
+  const ms=document.getElementById('moreSel'); if(ms){ms.value='';ms.classList.remove('picked');}
+  document.getElementById('selChip').classList.remove('show');
+  document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
+  const dsel=document.getElementById('durMoreSel'); if(dsel) dsel.selectedIndex=0;
+  st.inst=null; st.icon=null; st.dur=null;
+  // preselect this student's first instrument in the log card
+  if(ob.instruments&&ob.instruments.length){
     const first=ob.instruments[0];
     const btn=document.querySelector(`.inst-big-btn[data-inst="${first.name}"]`);
     if(btn) pickLogo(btn);
   }
-  document.getElementById('onboard').classList.add('hidden');
-  document.getElementById('obStep2BackBtn').textContent='← Back';
-  editingProfile=false;
-  saveState();
+  checkReady();
+  renderStudentBar();
+  renderColl(false);
+  renderMap(null);
+  renderChecklist();
+  renderParent();
+  // pending session banner (runs last so it wins over checkReady's button text)
+  const sc=document.getElementById('sentCard');
+  const lb=document.getElementById('logBtn');
+  if(st.pending){
+    sc.classList.add('show');
+    document.getElementById('sentDet').textContent=`${st.pending.icon} ${st.pending.inst} · ${st.pending.dur} min · sent at ${st.pending.time}`;
+    lb.disabled=true; lb.textContent='⏳ Sent!';
+  } else {
+    sc.classList.remove('show');
+  }
 }
 
+// ─── PRACTICE CHECKLIST ──────────────────────────────────────────────────────
+function chkInstruments(){
+  return (ob.instruments&&ob.instruments.length)?ob.instruments:[{name:'General',icon:'🎵'}];
+}
+function pickChkInst(name){ chkInst=name; renderChecklist(); }
+function renderChecklist(){
+  const insts=chkInstruments();
+  if(!chkInst||!insts.some(i=>i.name===chkInst)) chkInst=insts[0].name;
+  const row=document.getElementById('chkInstRow');
+  if(insts.length>1){
+    row.style.display='flex';
+    row.innerHTML=insts.map(i=>`<button class="chk-inst-pill${i.name===chkInst?' active':''}" onclick="pickChkInst('${escapeHtml(i.name)}')">${i.icon} ${escapeHtml(i.name)}</button>`).join('');
+  } else { row.style.display='none'; row.innerHTML=''; }
+  const items=checklists[chkInst]||[];
+  const cur=insts.find(i=>i.name===chkInst)||insts[0];
+  const list=document.getElementById('chkList');
+  if(!items.length){
+    list.innerHTML=`<div class="chk-empty">No practice tasks yet for ${cur.icon} ${escapeHtml(chkInst)}.<br>Add what to work on before the next lesson 👇</div>`;
+  } else {
+    list.innerHTML=items.map(t=>`
+      <div class="chk-item${t.done?' done':''}">
+        <button class="chk-check" onclick="toggleTodo('${t.id}')">${t.done?'✓':''}</button>
+        <div class="chk-text">${escapeHtml(t.text)}<span class="chk-by chk-by-${t.by}">${t.by}</span></div>
+        <button class="chk-del" onclick="deleteTodo('${t.id}')" title="Remove">×</button>
+      </div>`).join('');
+  }
+  const done=items.filter(t=>t.done).length;
+  const foot=document.getElementById('chkFoot');
+  if(items.length){
+    foot.style.display='flex';
+    foot.innerHTML=`<span class="chk-prog">${done}/${items.length} done</span>`+(done?`<button class="chk-clear" onclick="clearDoneTodos()">Clear completed</button>`:'');
+  } else { foot.style.display='none'; foot.innerHTML=''; }
+}
+function addTodo(){
+  const inp=document.getElementById('chkInput');
+  const text=inp.value.trim(); if(!text)return;
+  const by=(document.getElementById('chkBy').value||'Student').toLowerCase();
+  const insts=chkInstruments();
+  if(!chkInst||!insts.some(i=>i.name===chkInst)) chkInst=insts[0].name;
+  if(!checklists[chkInst]) checklists[chkInst]=[];
+  checklists[chkInst].push({id:genId(),text,done:false,by});
+  inp.value='';
+  saveState(); renderChecklist();
+}
+function toggleTodo(id){
+  const items=checklists[chkInst]||[];
+  const t=items.find(x=>x.id===id); if(!t)return;
+  t.done=!t.done;
+  saveState(); renderChecklist();
+  if(t.done) toast('✓ Task done — nice work!');
+}
+function deleteTodo(id){
+  checklists[chkInst]=(checklists[chkInst]||[]).filter(x=>x.id!==id);
+  saveState(); renderChecklist();
+}
+function clearDoneTodos(){
+  checklists[chkInst]=(checklists[chkInst]||[]).filter(x=>!x.done);
+  saveState(); renderChecklist();
+  toast('🧹 Cleared completed tasks');
+}
 
 const DUR_OPTIONS = [5,10,15,20,25,30,35,40,45,50,55,60,75,90];
 const DUR_LABELS  = ['5m','10m','15m','20m','25m','30m','35m','40m','45m','50m','55m','60m','75m','90m'];
@@ -934,24 +1156,77 @@ const st={inst:null,icon:null,dur:null,pending:null,stamps:[],streak:0,mins:0,xp
 let pickedEmoji=null;
 let pendingMysteryData=null;
 
+// ─── MULTI-STUDENT MODEL ─────────────────────────────────────────────────────
+// The live `ob`/`st` objects always mirror the ACTIVE student. They are backed
+// by `profiles` (one entry per student), so all existing rendering code keeps
+// reading ob.* / st.* unchanged. Switching students = sync live → active, then
+// load the selected profile into live.
+let profiles=[];            // [{id, ob:{childName,avatar,instruments}, st:{stamps,streak,mins,xp,pending}, checklists:{}}]
+let activeId=null;
+let parentName='Sarah';
+let checklists={};          // active student's checklist, keyed by instrument name → [{id,text,done,by}]
+let chkInst=null;           // currently-viewed instrument tab in the checklist
+let newStudentMode=false;   // true while onboarding a freshly-added (not yet committed) student
+let addStudentPrevId=null;  // student to fall back to if "Add student" is cancelled
+
+function genId(){return 'id'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);}
+function freshSt(){return {stamps:[],streak:0,mins:0,xp:0,pending:null};}
+function escapeHtml(s){return (s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function activeProfile(){return profiles.find(p=>p.id===activeId);}
+
+function syncLive(){ // write the live ob/st/checklists back into the active profile
+  const p=activeProfile(); if(!p)return;
+  p.ob={childName:ob.childName,avatar:ob.avatar,instruments:(ob.instruments||[]).map(i=>({name:i.name,icon:i.icon}))};
+  p.st={stamps:st.stamps,streak:st.streak,mins:st.mins,xp:st.xp,pending:st.pending};
+  p.checklists=checklists;
+}
+function loadActive(){ // load the active profile into the live ob/st/checklists
+  const p=activeProfile(); if(!p)return;
+  ob.childName=p.ob.childName; ob.avatar=p.ob.avatar||'🦊';
+  ob.instruments=(p.ob.instruments||[]).map(i=>({...i}));
+  ob.parentName=parentName;
+  st.stamps=p.st.stamps||[]; st.streak=p.st.streak||0; st.mins=p.st.mins||0; st.xp=p.st.xp||0; st.pending=p.st.pending||null;
+  st.inst=null; st.icon=null; st.dur=null;
+  checklists=p.checklists||{};
+  chkInst=null;
+}
+
 // ─── PERSISTENCE ─────────────────────────────────────────────────────────────
 const STORAGE_KEY='crescendo_v1';
 function saveState(){
-  try{localStorage.setItem(STORAGE_KEY,JSON.stringify({ob,st}));}catch(e){}
+  try{
+    syncLive();
+    localStorage.setItem(STORAGE_KEY,JSON.stringify({v:2,parentName,activeId,profiles}));
+  }catch(e){}
 }
 function loadState(){
   try{
     const raw=localStorage.getItem(STORAGE_KEY);
     if(!raw)return false;
     const saved=JSON.parse(raw);
-    if(!saved.ob||!saved.st)return false;
-    Object.assign(ob,saved.ob);
-    Object.assign(st,saved.st);
+    if(saved.profiles){                         // v2 — multi-student
+      profiles=saved.profiles;
+      parentName=saved.parentName||'Parent';
+      activeId=saved.activeId||(profiles[0]&&profiles[0].id);
+    } else if(saved.ob&&saved.st){              // v1 — migrate single student → one profile
+      parentName=saved.ob.parentName||'Parent';
+      const id=genId();
+      profiles=[{
+        id,
+        ob:{childName:saved.ob.childName||'Student',avatar:saved.ob.avatar||'🦊',instruments:(saved.ob.instruments||[]).map(i=>({...i}))},
+        st:{stamps:saved.st.stamps||[],streak:saved.st.streak||0,mins:saved.st.mins||0,xp:saved.st.xp||0,pending:saved.st.pending||null},
+        checklists:{}
+      }];
+      activeId=id;
+    } else return false;
+    if(!profiles.length)return false;
+    if(!activeProfile()) activeId=profiles[0].id;
+    loadActive();
     return true;
   }catch(e){return false;}
 }
 function clearState(){
-  if(!confirm('Reset all progress? This cannot be undone.'))return;
+  if(!confirm('Reset ALL progress for every student? This cannot be undone.'))return;
   localStorage.removeItem(STORAGE_KEY);
   location.reload();
 }
@@ -1676,26 +1951,11 @@ function initDodge(canvas){
 
 buildDurButtons();
 if(loadState()){
-  // Restore UI — skip onboarding
-  document.getElementById('childNameDisplay').textContent=ob.childName+"'s Journal";
-  document.getElementById('parNameDisplay').textContent=ob.parentName+' (parent)';
-  document.getElementById('avatarRing').textContent=ob.avatar;
+  // Returning user — skip onboarding and paint the active student
   document.getElementById('onboard').classList.add('hidden');
-  if(ob.instruments.length>0){
-    const first=ob.instruments[0];
-    const btn=document.querySelector(`.inst-big-btn[data-inst="${first.name}"]`);
-    if(btn) pickLogo(btn);
-  }
-  if(st.pending){
-    document.getElementById('sentCard').classList.add('show');
-    document.getElementById('sentDet').textContent=`${st.pending.icon} ${st.pending.inst} · ${st.pending.dur} min · sent at ${st.pending.time}`;
-    document.getElementById('logBtn').disabled=true;
-    document.getElementById('logBtn').textContent='⏳ Sent!';
-  }
+  saveState(); // persist any v1→v2 migration durably
 }
-renderColl(false);
-renderMap(null);
-renderParent();
+refreshAll();
 </script>
 </body>
 </html>
