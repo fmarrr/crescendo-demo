@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Crescendo 🎵</title>
 <style>
 @font-face{font-family:'Fredoka';font-style:normal;font-weight:400 700;font-display:swap;src:url('fonts/fredoka-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
@@ -24,7 +24,8 @@
   --red:#f87171;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;}
+html,body{height:100%;}
+body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);overflow:hidden;}
 .stars{position:fixed;inset:0;pointer-events:none;z-index:0;background:
   radial-gradient(1px 1px at 7% 11%,rgba(255,255,255,.7) 0%,transparent 100%),
   radial-gradient(1px 1px at 19% 63%,rgba(255,255,255,.4) 0%,transparent 100%),
@@ -42,7 +43,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
   radial-gradient(1px 1px at 96% 44%,rgba(255,255,255,.35) 0%,transparent 100%);}
 
 /* ══ ONBOARDING SCREEN ══ */
-.onboard-screen{position:fixed;inset:0;z-index:600;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
+.onboard-screen{position:fixed;inset:0;z-index:600;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));overflow-y:auto;}
 .onboard-screen.hidden{display:none;}
 .ob-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:26px 22px;max-width:380px;width:100%;margin:auto;}
 .ob-step{display:none;}
@@ -96,7 +97,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 .ob-back-btn:hover{border-color:var(--border2);color:var(--text2);}
 
 /* ══ PRIVACY POLICY OVERLAY ══ */
-.pp-ov{display:none;position:fixed;inset:0;z-index:700;background:var(--bg);overflow-y:auto;padding:24px 18px;}
+.pp-ov{display:none;position:fixed;inset:0;z-index:700;background:var(--bg);overflow-y:auto;padding:calc(24px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));}
 .pp-ov.show{display:block;}
 .pp-card{max-width:380px;margin:0 auto;}
 .pp-back{display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text2);font-family:'Fredoka',sans-serif;font-size:15px;cursor:pointer;padding:0 0 18px;transition:color .15s;}
@@ -111,8 +112,8 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 .pp-link:hover{color:var(--purple);}
 
 /* ══ APP ══ */
-.app{position:relative;z-index:1;max-width:430px;margin:0 auto;padding:0 0 60px;min-height:100vh;}
-.view-toggle{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 14px;gap:8px;position:sticky;top:0;z-index:100;}
+.app{position:relative;z-index:1;max-width:430px;margin:0 auto;padding:0 0 calc(60px + env(safe-area-inset-bottom));height:100vh;height:100dvh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+.view-toggle{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);padding:calc(10px + env(safe-area-inset-top)) 14px 10px;gap:8px;position:sticky;top:0;z-index:100;}
 .toggle-btn{flex:1;padding:9px 8px;border-radius:12px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-family:'Fredoka',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;}
 .toggle-btn.active{background:var(--purple);border-color:var(--purple);color:#fff;box-shadow:0 0 18px rgba(124,106,247,.45);}
 .toggle-btn:hover:not(.active){border-color:var(--border2);color:var(--text);}
@@ -433,9 +434,9 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 
       <div class="ob-section">
         <div class="ob-section-title">🎵 How Crescendo works</div>
-        <div class="ob-item"><div class="ob-item-icon">🎹</div><div>Child logs a practice session — instrument and how long.</div></div>
-        <div class="ob-item"><div class="ob-item-icon">👩</div><div>Parent approves it with one tap — a mystery reward box appears!</div></div>
-        <div class="ob-item"><div class="ob-item-icon">🎁</div><div>Child opens the surprise box and plays a bonus mini-game to celebrate!</div></div>
+        <div class="ob-item"><div class="ob-item-icon">🎹</div><div>The student logs a practice session — instrument and how long.</div></div>
+        <div class="ob-item"><div class="ob-item-icon">👩</div><div>A parent or teacher approves it with one tap — a mystery reward box appears!</div></div>
+        <div class="ob-item"><div class="ob-item-icon">🎁</div><div>The student opens the surprise box and plays a bonus mini-game to celebrate!</div></div>
         <div class="ob-item"><div class="ob-item-icon">🌟</div><div>Earn stamps and level up along the journey map!</div></div>
       </div>
 
@@ -454,9 +455,9 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
       </div>
       <div class="ob-logo" style="margin-bottom:12px;">
         <div class="ob-symbol" style="font-size:36px;">🦊</div>
-        <div class="ob-logo-name" style="font-size:24px;">Set up your child</div>
+        <div class="ob-logo-name" style="font-size:24px;">Set up the student</div>
       </div>
-      <div class="ob-setup-label">What's your child's name?</div>
+      <div class="ob-setup-label">What's the student's name?</div>
       <input class="ob-input" id="obChildName" type="text" placeholder="e.g. Mia" maxlength="20" oninput="checkObStep2()"/>
       <div class="ob-setup-label">Pick their avatar</div>
       <div class="ob-avatar-row" id="avatarGrid"></div>
@@ -582,7 +583,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
 
 <div class="app">
   <div class="view-toggle">
-    <button class="toggle-btn active" id="btnC" onclick="switchView('child')">🎵 Child</button>
+    <button class="toggle-btn active" id="btnC" onclick="switchView('child')">🎵 Practice</button>
     <button class="toggle-btn" id="btnP" onclick="switchView('parent')">🎁 Check & Approve</button>
   </div>
 
@@ -645,7 +646,7 @@ body{background:var(--bg);font-family:'Fredoka',sans-serif;color:var(--text);min
         <div class="dur-top"><span class="dur-lb">⏱ Duration</span></div>
         <div class="dur-scroll" id="durScroll"></div>
       </div>
-      <button class="log-btn" id="logBtn" onclick="submit()" disabled>📝 Send to parent</button>
+      <button class="log-btn" id="logBtn" onclick="submit()" disabled>📝 Send for approval</button>
     </div>
 
     <div class="sent-card" id="sentCard">
@@ -1005,7 +1006,7 @@ function checkReady(){
   const btn=document.getElementById('logBtn');
   const ok=!!(st.inst&&st.dur&&!st.pending);
   btn.disabled=!ok;
-  btn.textContent=ok?`📝 Send ${st.icon} ${st.dur}m to parent`:'📝 Send to parent';
+  btn.textContent=ok?`📝 Send ${st.icon} ${st.dur}m for approval`:'📝 Send for approval';
 }
 
 function submit(){
@@ -1015,7 +1016,7 @@ function submit(){
   document.getElementById('logBtn').textContent='⏳ Sent!';
   document.getElementById('sentCard').classList.add('show');
   document.getElementById('sentDet').textContent=`${st.icon} ${st.inst} · ${st.dur} min · sent at ${st.pending.time}`;
-  toast('📨 Practice sent to parent!');
+  toast('📨 Practice sent for approval!');
   saveState();
 }
 
@@ -1131,7 +1132,7 @@ function renderColl(anim){
 function renderParent(){
   const c=document.getElementById('pendReq');
   if(!st.pending){
-    c.innerHTML=`<div class="no-req"><div class="ni">🎁</div><p>No pending sessions right now.<br>Ask your child to log a practice!</p></div>`;
+    c.innerHTML=`<div class="no-req"><div class="ni">🎁</div><p>No pending sessions right now.<br>Ask the student to log a practice!</p></div>`;
   } else {
     const s=st.pending;
     c.innerHTML=`<div class="req-card hot">
@@ -1171,7 +1172,7 @@ function approve(){
   const durSel=document.getElementById('durMoreSel');
   if(durSel) durSel.selectedIndex=0;
   st.dur=null;
-  document.getElementById('logBtn').textContent='📝 Send to parent';
+  document.getElementById('logBtn').textContent='📝 Send for approval';
   document.getElementById('logBtn').disabled=true;
   document.getElementById('sentCard').classList.remove('show');
 

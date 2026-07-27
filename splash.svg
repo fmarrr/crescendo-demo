@@ -78,14 +78,10 @@
   </g>
 
   <!-- ── App name (Fredoka) ─────────────────────────────────────────── -->
-  <text x="540" y="910"
+  <text x="540" y="970"
         font-family="'Fredoka', sans-serif"
         font-size="108" font-weight="700" text-anchor="middle"
         fill="url(#brand)">Crescendo</text>
-  <text x="540" y="1030"
-        font-family="'Fredoka', sans-serif"
-        font-size="108" font-weight="700" text-anchor="middle"
-        fill="url(#brand)">Kids</text>
 
   <!-- Thin divider -->
   <rect x="360" y="1062" width="360" height="1.5" fill="url(#brand)" opacity="0.45"/>
